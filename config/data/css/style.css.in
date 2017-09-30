@@ -1,0 +1,6 @@
+@require "../bootstrap/css/bootstrap.css";
+
+div {
+  @extend alert;
+  @extend alert-primary;
+}

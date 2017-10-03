@@ -1,9 +1,3 @@
 [submodule "config/data/clearseam"]
 	path = config/data/clearseam
 	url = https://github.com/mildred/clearseam
-[submodule "config/data/citojs"]
-	path = config/data/citojs
-	url = git://github.com/mildred/citojs.git
-[submodule "config/data/webcomponentsjs"]
-	path = config/data/webcomponentsjs
-	url = https://github.com/webcomponents/webcomponentsjs

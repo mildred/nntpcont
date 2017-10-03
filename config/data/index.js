@@ -1,46 +1,29 @@
-'use strict';
-
-const { Component, h, render } = window.preact;
-
-
-/** Example classful component */
-class App extends Component {
-	componentDidMount() {
-		this.setState({ message:'Hello!' });
+class App {
+	constructor(){
+		this.list = new List()
 	}
-	render(props, state) {
-		return (
-			h('div', {id:'app'},
-				h(Header, { message: state.message }),
-				h(Main)
-			)
-		);
+	view(){
+		return [
+			m("h1", {}, "App"),
+			"Hello",
+			"World",
+			m(this.list)
+		]
 	}
 }
 
-
-/** Components can just be pure functions */
-const Header = (props) => {
-	return h('header', null,
-		h('h1', null, 'App'),
-		props.message && h('h2', null, props.message)
-	);
-};
-
-
-/** Instead of JSX, use: h(type, props, ...children) */
-class Main extends Component {
-	render() {
-		const items = [1,2,3,4,5].map( (item) => (
-			h('li', {id:item}, 'Item '+item)
-		));
-		return (
-			h('main', null,
-				h('ul', null, items)
-			)
-		);
+class List {
+	constructor(){
+		this.template = template("list", {
+			"li": {
+				"line <- lines": {'.': "line"}
+			}
+		})
+	}
+	view(){
+		var res = this.template({lines: [1, 2, 3, 4, 5]})
+		return res
 	}
 }
 
-
-render(h(App), document.body);
+m.mount(document.body, new App());

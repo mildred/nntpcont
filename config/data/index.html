@@ -6,19 +6,21 @@
     <script src="clearseam/clearseam.js"></script>
     <script src="clearseam/clearseam.mithril.js"></script>
     <script src="clearseam/framework.mithril.js"></script>
-    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css" />
-  </head>
-  <body>
-    <template name="line">
-      <li></li>
-    </template>
+    <!--link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css" /-->
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
     <template name="list">
+      <div>inside a div</div>
       <ul>
         <li></li>
       </ul>
     </template>
+  </head>
+  <body>
     <div id="main">
-      <script src="index.js"></script>
+      <script type="module">
+        import routes from "./js/routes.js"
+        m.route(document.body, "/", routes)
+      </script>
     </div>
   </body>
 </html>

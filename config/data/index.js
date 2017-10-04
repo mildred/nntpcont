@@ -26,4 +26,60 @@ class List {
 	}
 }
 
-m.mount(document.body, new App());
+var Menu = {
+    view: function() {
+        return m("nav", [
+            m("a[href=/]", {oncreate: m.route.link}, "Home"),
+            m("a[href=/page1]", {oncreate: m.route.link}, "Page 1"),
+        ])
+    }
+}
+
+var Page1 = {
+    view: function() {
+        return [
+            m(Menu),
+            m("h1", "Page 1")
+        ]
+    }
+}
+
+var Home = {
+    view: function() {
+        return [
+            m(Menu),
+            m("h1", "Home"),
+            m(App)
+        ]
+    }
+}
+
+var Page1 = {
+    view: function() {
+        return [
+            m(Menu),
+            m("h1", "Page 1")
+        ]
+    }
+}
+
+var login = false
+
+class AuthRoute {
+	constructor(r){
+		this.route = r
+	}
+	onmatch(){
+		if(!login) {
+			return m.route.set("/login")
+		} else {
+			return this.route
+		}
+	}
+}
+
+m.route(document.body, "/", {
+    "/":      Home,
+    "/login": Home,
+    "/page1": new AuthRoute(Page1),
+})

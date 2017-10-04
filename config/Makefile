@@ -7,3 +7,12 @@ dep:
 	go get github.com/elazarl/go-bindata/...
 	go get github.com/mildred/clearcss
 
+%.css: %.in.css
+	clearcss $< > $@
+
+data/css/style.css: data/bootstrap/css/bootstrap.css
+
+css: data/css/style.css always
+
+.PHONY: always
+

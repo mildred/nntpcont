@@ -1,0 +1,15 @@
+- daemon that listen to a unix socket
+  - recv requests to start cjdns with a netns file descriptor
+  - generates a tun device with the correct netns
+  - https://unix.stackexchange.com/questions/299607/how-to-specify-a-namespace-when-creating-a-tun-tap-device
+  - generate a cjdns config with tunfd=android
+  - allocate admin interface port
+  - handle connection with the network
+  - generate a pipe to pass the run device fd to cjdns
+  - start cjdns
+  - wait for unix domain connection to close to stop cjdns
+- client to request for cjdns
+  - dial a unix domain socket and require address
+  - get the tun device, exit but keep the connection open in the background
+  - another option is to fork to keep the connection open but fork a main
+    program

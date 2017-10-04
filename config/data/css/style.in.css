@@ -1,0 +1,13 @@
+@require "../bootstrap/css/bootstrap.css";
+
+div {
+  @extend .alert, .alert-primary;
+}
+
+nav {
+  @extend .navbar, .navbar-expand-lg, .navbar-light, .bg-light;
+}
+
+nav a {
+  @extend .navbar-brand;
+}

@@ -20,12 +20,13 @@ type LogRequest struct {
 func (lr *LogRequest) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	idstr := genpass.Generate(8)
 	prefix := log.Prefix()
-	log.SetPrefix(prefix + "[" + idstr + "] ")
-	defer log.SetPrefix(prefix)
-	log.Printf("%s %s %s", r.Method, r.URL.Path, r.RemoteAddr)
+	// TODO
+	// <https://github.com/funkygao/golib/commit/06ddeaa8873717b178401bcbfaf9d7cc3ab4a8f5>
+	l := log.New(os.Stdout, prefix+"["+idstr+"] ", log.Flags())
+	l.Printf("%s %s %s", r.Method, r.URL.Path, r.RemoteAddr)
 	w.Header().Set("X-Request-ID", idstr)
 	lr.parent.ServeHTTP(w, r)
-	log.Printf("Completed")
+	l.Printf("Completed")
 }
 
 func main() {

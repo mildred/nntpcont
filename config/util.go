@@ -30,5 +30,6 @@ func cancelSignals(cancelContext context.CancelFunc, wg *sync.WaitGroup, signals
 		s := <-signalChan
 		log.Printf("Captured %v. Exiting...", s)
 		cancelContext()
+		signal.Reset(signals...)
 	}()
 }

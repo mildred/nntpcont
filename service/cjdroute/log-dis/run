@@ -1,0 +1,4 @@
+#!/bin/sh
+
+mkdir -p /var/log/cjdns
+exec multilog t /var/log/cjdns

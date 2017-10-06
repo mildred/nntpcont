@@ -7,7 +7,8 @@ RUN env DEBIAN_FRONTEND=noninteractive apt-get install -y iproute2 vim-tiny
 COPY entrypoint.sh /entrypoint.sh
 COPY service /service
 COPY result.go/cjdnsclient /bin/cjdnsclient
+COPY result.go/config /bin/config
 VOLUME ["/run/cjdnserver"]
 ENTRYPOINT ["/bin/bash", "/entrypoint.sh"]
-CMD ["svscan", "/service"]
+CMD []
 

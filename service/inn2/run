@@ -1,0 +1,30 @@
+#!/bin/sh
+
+cp readers/conf /etc/news/readers.conf
+cp control.ctl.local /etc/news/control.ctl.local
+sed -r -i \
+  -e 's/^pgpverify:.*/pgpverify: false/' \
+  -e 's/^organization:.*/organization: "Hyperboria News"/' \
+  -e 's/^nnrpdflags:.*/nnrpdflags: "-n"/' \
+  /etc/news/inn.conf
+sed -r -i \
+  -e 's/^\*:A.*/*:A:never:never:never/' \
+  /etc/news/expire.ctl
+
+if [ ! -d /run/news ]; then
+  mkdir -p /run/news
+  chown news:news /run/news
+  chmod 775 /run/news
+fi
+
+clean_exit(){
+  setuidgid news /usr/lib/news/bin/rc.news stop
+}
+
+trap clean_exit 0 2 15
+
+setuidgid news /usr/lib/news/bin/rc.news
+
+while [ -e /run/news/innd.pid ] && [ -e "/proc/$(cat /run/news/innd.pid)" ]; do
+  sleep 1m
+done

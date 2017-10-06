@@ -1,3 +1,14 @@
+build:
+	go get -v .
+	go build .
+
+install:
+	go install .
+
+generate:
+	$(MAKE) css
+	$(MAKE) assetfs
+
 assetfs:
 	go-bindata-assetfs data/...
 	sed -ri -e '/package/ a import "os"' 'bindata_assetfs.go'

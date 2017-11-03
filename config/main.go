@@ -50,7 +50,7 @@ func main() {
 
 	server.Handler = &LogRequest{&mux}
 
-	cancelSignals(cancelContext, &wg, syscall.SIGINT, syscall.SIGTERM)
+	cancelSignals(ctx, &wg, cancelContext, syscall.SIGINT, syscall.SIGTERM)
 
 	log.Printf("Listening on %s", server.Addr)
 	err := listen(ctx, &wg, &server)
@@ -58,6 +58,8 @@ func main() {
 		log.Fatal(err)
 	}
 
+	log.Println("Waiting for background tasks to terminate...")
+	wg.Wait()
 	defer log.Println("Terminated.")
 	os.Exit(0)
 }

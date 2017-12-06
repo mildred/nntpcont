@@ -1,12 +1,18 @@
-import m from "./mithril.js"
+import {m, template, relative_url} from "./libs.js"
 
 class Menu {
+  constructor(){
+    this.template = template(relative_url("./menu.html"), {
+      "a&create": "link",
+      "button&click": "login"
+    })
+    this.link = m.route.link
+  }
+  login(){
+    window.login = true;
+  }
   view(){
-    return m("nav.navbar.navbar-expand-lg", [
-        m("a.navbar-brand", {href: '/',      oncreate: m.route.link}, "Home"),
-        m("a", {href: '/login', oncreate: m.route.link}, "Login"),
-        m("a", {href: '/page1', oncreate: m.route.link}, "Page 1"),
-    ])
+    return this.template(this)
   }
 }
 

@@ -1,6 +1,8 @@
 #!/bin/sh
 
-cp readers/conf /etc/news/readers.conf
+cp readers.conf /etc/news/readers.conf
+cp incoming.conf /etc/news/incoming.conf
+cp innfeed.conf /etc/news/infeed.conf
 cp control.ctl.local /etc/news/control.ctl.local
 sed -r -i \
   -e 's/^pgpverify:.*/pgpverify: false/' \
@@ -18,13 +20,18 @@ if [ ! -d /run/news ]; then
 fi
 
 clean_exit(){
-  setuidgid news /usr/lib/news/bin/rc.news stop
+  /etc/init.d/inn2 stop
+  exit 0
 }
 
 trap clean_exit 0 2 15
 
-setuidgid news /usr/lib/news/bin/rc.news
+/etc/init.d/inn2 start
 
-while [ -e /run/news/innd.pid ] && [ -e "/proc/$(cat /run/news/innd.pid)" ]; do
+sleep 1m
+
+while /etc/init.d/inn2 status >/dev/null 2>&1; do
   sleep 1m
 done
+
+/etc/init.d/inn2 status

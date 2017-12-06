@@ -31,6 +31,7 @@ func NewConfigHandler(ctx context.Context, wg *sync.WaitGroup) *ConfigHandler {
 	}
 	log.Printf("First login using password: %s", h.password)
 	prefix := "/v1"
+	h.mux.Handle(prefix+"/login", NewLoginHandler(ctx, wg))
 	h.mux.Handle(prefix+"/whitelist", NewWhitelistHandler(ctx, wg, h.whitelist))
 	return &h
 }

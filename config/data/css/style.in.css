@@ -1,13 +1,29 @@
 @require "../bootstrap/css/bootstrap.css";
 
-div {
+/*div {
   @extend .alert, .alert-primary;
-}
+}*/
 
 nav {
-  @extend .navbar, .navbar-expand-lg, .navbar-light, .bg-light;
+  @extend .navbar, .navbar-expand-lg, .navbar-dark, .bg-dark, .navbar-expand;
 }
 
-nav a {
-  @extend .navbar-brand;
+nav > div {
+  @extend .navbar-expand .navbar-collapse, .navbar-expand-lg .navbar-collapse, .navbar-collapse;
+}
+
+nav > div > ul {
+  @extend .navbar-nav, .navbar-expand .navbar-nav, .navbar-expand-lg .navbar-nav, .mr-auto;
+}
+
+nav > div > ul > li {
+  @extend .nav-item;
+}
+
+nav > div > ul > li > a {
+  @extend .navbar-dark .navbar-nav .nav-link, .nav-link;
+}
+
+nav form {
+  @extend .form-inline;
 }
